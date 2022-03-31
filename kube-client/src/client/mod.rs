@@ -218,6 +218,7 @@ impl Client {
     /// Perform a raw HTTP request against the API and get back the response
     /// as a string
     pub async fn request_text(&self, request: Request<Vec<u8>>) -> Result<String> {
+        println!("request: {:?}", request);
         let res = self.send(request.map(Body::from)).await?;
         println!("result of send: {:?}", res);
         let status = res.status();
