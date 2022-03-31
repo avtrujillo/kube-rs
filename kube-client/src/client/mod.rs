@@ -209,7 +209,6 @@ impl Client {
         T: DeserializeOwned,
     {
         let text = self.request_text(request).await?;
-        println!("{:?}", text);
         serde_json::from_str(&text).map_err(|e| {
             tracing::warn!("{}, {:?}", text, e);
             Error::SerdeError(e)
@@ -220,6 +219,7 @@ impl Client {
     /// as a string
     pub async fn request_text(&self, request: Request<Vec<u8>>) -> Result<String> {
         let res = self.send(request.map(Body::from)).await?;
+        println!("result of send: {:?}", res);
         let status = res.status();
         // trace!("Status = {:?} for {}", status, res.url());
         let body_bytes = hyper::body::to_bytes(res.into_body())

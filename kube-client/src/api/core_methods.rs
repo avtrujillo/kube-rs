@@ -108,7 +108,6 @@ where
         let mut req = self.request.create(pp, bytes).map_err(Error::BuildRequest)?;
         req.extensions_mut().insert("create");
         let res = self.client.request::<K>(req).await;
-        println!("{:?}", res);
         res
     }
 
