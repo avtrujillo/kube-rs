@@ -107,7 +107,9 @@ where
         let bytes = serde_json::to_vec(&data).map_err(Error::SerdeError)?;
         let mut req = self.request.create(pp, bytes).map_err(Error::BuildRequest)?;
         req.extensions_mut().insert("create");
-        self.client.request::<K>(req).await
+        let res = self.client.request::<K>(req).await;
+        println!("{:?}", res);
+        res
     }
 
     /// Delete a named resource
