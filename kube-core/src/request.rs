@@ -120,9 +120,7 @@ impl Request {
         }
         let urlstr = qp.finish();
         let req = http::Request::post(urlstr).header(http::header::CONTENT_TYPE, JSON_MIME);
-        let err = req.body(data);
-        println!("{:?}", err);
-        err.map_err(Error::BuildRequest)
+        req.body(data).map_err(Error::BuildRequest)
     }
 
     /// Delete an instance of a resource

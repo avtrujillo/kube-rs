@@ -209,7 +209,7 @@ impl Client {
         T: DeserializeOwned,
     {
         let text = self.request_text(request).await?;
-
+        println!("{:?}", text);
         serde_json::from_str(&text).map_err(|e| {
             tracing::warn!("{}, {:?}", text, e);
             Error::SerdeError(e)
